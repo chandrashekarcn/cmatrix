@@ -32,6 +32,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <locale.h>
+#include "indian.h"
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -79,6 +80,12 @@ cmatrix **matrix = (cmatrix **) NULL;
 int *length = NULL;  /* Length of cols in each line */
 int *spaces = NULL;  /* Spaces left to fill */
 int *updates = NULL; /* What does this do again? */
+
+
+/* indian languages */
+int lang = 0;
+
+
 #ifndef _WIN32
 volatile sig_atomic_t signal_status = 0; /* Indicates a caught signal */
 #endif
@@ -137,7 +144,7 @@ void c_die(char *msg, ...) {
 }
 
 void usage(void) {
-    printf(" Usage: cmatrix -[abBcfhlsmVxk] [-u delay] [-C color] [-t tty] [-M message]\n");
+    printf(" Usage: cmatrix -[abBcfhlsmVxki] [-u delay] [-C color] [-t tty] [-M message] [-i indian Language number]\n");
     printf(" -a: Asynchronous scroll\n");
     printf(" -b: Bold characters on\n");
     printf(" -B: All bold characters (overrides -b)\n");
@@ -155,16 +162,38 @@ void usage(void) {
     printf(" -u delay (0 - 10, default 4): Screen update delay\n");
     printf(" -C [color]: Use this color for matrix (default green)\n");
     printf(" -r: rainbow mode\n");
-    printf(" -m: lambda mode\n");
+    printf(" -m: ॐ om mode\n");
     printf(" -k: Characters change while scrolling. (Works without -o opt.)\n");
     printf(" -t [tty]: Set tty to use\n");
+    printf(" -i [lang]: Use Indian Language Characters\n"); // indian languages
+    printf(" Ex: \n");
+    printf("     cmatrix -i 1\n\n");
+    printf("    1: Kannada.    2: Hindi.      3: Telgu\n");
+    printf("    4: Tamil.      5: Malayalm.   6: Marati\n");
+    printf("    7: Gujarati.   8: Oriya.      9: Bangla.\n");
+    printf("   10: Punjab.    11: Urdu.      12: Braille.\n");
+
 }
+
+void indian_help(void) {
+    system("clear");
+    printf("\n -i [lang]: Use Indian Language Characters\n"); // indian languages
+    printf(" Ex: \n");
+    printf("     cmatrix -i 1\n\n");
+    printf("    1: Kannada.    2: Hindi.      3: Telgu\n");
+    printf("    4: Tamil.      5: Malayalm.   6: Marati\n");
+    printf("    7: Gujarati.   8: Oriya.      9: Bangla.\n");
+    printf("   10: Punjab.    11: Urdu.      12: Braille.\n");
+}
+
+
 
 void version(void) {
     printf(" CMatrix version %s (compiled %s, %s)\n",
         VERSION, __TIME__, __DATE__);
     printf("Email: abishekvashok@gmail.com\n");
     printf("Web: https://github.com/abishekvashok/cmatrix\n");
+    printf("Indian Language's: Chandrashekar C.N\n");
 }
 
 
@@ -321,6 +350,7 @@ int main(int argc, char *argv[]) {
     int pause = 0;
     int classic = 0;
     int changes = 0;
+    //int lang = 0; // indian languages.
     char *msg = "";
     char *tty = NULL;
 
@@ -329,7 +359,7 @@ int main(int argc, char *argv[]) {
 
     /* Many thanks to morph- (morph@jmss.com) for this getopt patch */
     opterr = 0;
-    while ((optchr = getopt(argc, argv, "abBcfhlLnrosmxkVM:u:C:t:")) != EOF) {
+    while ((optchr = getopt(argc, argv, "abBcfhlLnrosmxkVM:u:C:t:i:")) != EOF) {
         switch (optchr) {
         case 's':
             screensaver = 1;
@@ -417,6 +447,12 @@ int main(int argc, char *argv[]) {
             break;
         case 't':
             tty = optarg;
+            break;
+        case 'i':  // indian languages
+            lang = atoi(optarg);
+            if ( lang >= 14 || lang == 0){
+               indian_help();
+               c_die("\n please choose correct language number. \n\n"); }
             break;
         }
     }
@@ -763,8 +799,10 @@ if (console) {
                         }
                     } else if (matrix[i][j].val == -1) {
                         addch(' ');
-                    } else {
-                        addch(matrix[i][j].val);
+                    } else { // indian language
+                        if ( lang >= 1 ) {
+                        addstr(indian_chars[lang][matrix[i][j].val]); }
+                        else { addch(matrix[i][j].val); }
                     }
 
                     attroff(COLOR_PAIR(COLOR_WHITE));
@@ -819,9 +857,11 @@ if (console) {
                         if (matrix[i][j].val == -1) {
                             addch(' ');
                         } else if (lambda && matrix[i][j].val != ' ') {
-                            addstr("λ");
-                        } else {
-                            addch(matrix[i][j].val);
+                            addstr("ॐ");
+                        } else { // indian language
+                            if(lang >= 1){
+                            addstr(indian_chars[lang][matrix[i][j].val]);}
+                            else { addch(matrix[i][j].val); }
                         }
                         if (bold == 2 ||
                             (bold == 1 && matrix[i][j].val % 2 == 0)) {
