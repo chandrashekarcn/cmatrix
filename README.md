@@ -83,6 +83,7 @@ _Note: cmatrix is probably not particularly portable or efficient, but it wont h
 - Everyone who has sent (and who will send) us and Chris mails regarding
   bugs, comments, patches or just a hello.
 - Everyone who has opened issues and PRs on the github repository.
+- Indian Languages By Chandrashekar C.N.
 
 ### License
 This software is provided under the GNU GPL v3.
