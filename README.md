@@ -65,6 +65,7 @@ _Note: cmatrix is probably not particularly portable or efficient, but it wont h
 #### Screencasts Indian Language Characters.
 
 ![Movie-Like Cast](data/img/CNC_indian.gif?raw=true "cmatrix -i 1")
+![Movie-Like Cast](data/img/CNC_IndianDemo.gif?raw=true "cmatrix -i 1")
 
 ### Maintainers
 - Abishek V Ashok (@abishekvashok) <abishekvashok@gmail.com> [Core]
