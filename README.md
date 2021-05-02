@@ -95,7 +95,7 @@ _Note: cmatrix is probably not particularly portable or efficient, but it wont h
     7: Gujarati.   8: Oriya.      9: Bangla.
    10: Punjab.    11: Urdu.      12: Braille.
 
-   Countries
+   Country's
 
    18: Russia.    19: Tibetan.   20: Myanmar.
    21: Mongolian. 22: Sri Lanka. 23: Thailand.
