@@ -88,7 +88,20 @@ _Note: cmatrix is probably not particularly portable or efficient, but it wont h
 - Everyone who has sent (and who will send) us and Chris mails regarding
   bugs, comments, patches or just a hello.
 - Everyone who has opened issues and PRs on the github repository.
-- Indian Languages By Chandrashekar C.N.
+- Indian Language's And Other Country's 
+ 
+    1: Kannada.    2: Hindi.      3: Telgu.
+    4: Tamil.      5: Malayalam.  6: Marati.
+    7: Gujarati.   8: Oriya.      9: Bangla.
+   10: Punjab.    11: Urdu.      12: Braille.
+
+   Countries
+
+   18: Russia.    19: Tibetan.   20: Myanmar.
+   21: Mongolian. 22: Sri Lanka. 23: Thailand.
+   24: Georgia.   25: Koria.
+                 
+                           By Chandrashekar C.N.
 
 ### License
 This software is provided under the GNU GPL v3.
