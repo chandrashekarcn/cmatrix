@@ -165,35 +165,16 @@ void usage(void) {
     printf(" -m: ॐ om mode\n");
     printf(" -k: Characters change while scrolling. (Works without -o opt.)\n");
     printf(" -t [tty]: Set tty to use\n");
-    printf(" -i [lang]: Use Indian Language Characters\n"); // indian languages
-    printf(" Ex: \n");
-    printf("     cmatrix -i 1\n\n");
-    printf("    1: Kannada.    2: Hindi.      3: Telgu\n");
-    printf("    4: Tamil.      5: Malayalm.   6: Marati\n");
-    printf("    7: Gujarati.   8: Oriya.      9: Bangla.\n");
-    printf("   10: Punjab.    11: Urdu.      12: Braille.\n");
-
+    indian_lang_help();
 }
-
-void indian_help(void) {
-    system("clear");
-    printf("\n -i [lang]: Use Indian Language Characters\n"); // indian languages
-    printf(" Ex: \n");
-    printf("     cmatrix -i 1\n\n");
-    printf("    1: Kannada.    2: Hindi.      3: Telgu\n");
-    printf("    4: Tamil.      5: Malayalm.   6: Marati\n");
-    printf("    7: Gujarati.   8: Oriya.      9: Bangla.\n");
-    printf("   10: Punjab.    11: Urdu.      12: Braille.\n");
-}
-
-
 
 void version(void) {
     printf(" CMatrix version %s (compiled %s, %s)\n",
         VERSION, __TIME__, __DATE__);
     printf("Email: abishekvashok@gmail.com\n");
     printf("Web: https://github.com/abishekvashok/cmatrix\n");
-    printf("Indian Language's: Chandrashekar C.N\n");
+    printf("\nIndian Language's & Countries \n");
+    printf("              Chandrashekar C.N\n");
 }
 
 
@@ -450,7 +431,7 @@ int main(int argc, char *argv[]) {
             break;
         case 'i':  // indian languages
             lang = atoi(optarg);
-            if ( lang >= 14 || lang == 0){
+            if ( lang >= lang_limit || lang == 0){
                indian_help();
                c_die("\n please choose correct language number. \n\n"); }
             break;
@@ -545,8 +526,10 @@ if (console) {
     /* Set up values for random number generation */
     if(classic) {
         /* Japanese character unicode range [they are seen in the original cmatrix] */
-        randmin = 12288;
-        highnum = 12351;
+        lang = 14;
+        randmin = 33;
+        highnum = 123; // 12288-12351
+
     } else if (console || xwindow) {
         randmin = 166;
         highnum = 217;
@@ -795,7 +778,7 @@ if (console) {
                         if (console || xwindow) {
                             addch(183);
                         } else {
-                            addch('&');
+                            addstr("࿗");
                         }
                     } else if (matrix[i][j].val == -1) {
                         addch(' ');
