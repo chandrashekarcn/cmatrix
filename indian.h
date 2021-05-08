@@ -14,9 +14,6 @@ void indian_lang_help(void){
 }
 
 void indian_help(void) {
-#ifndef _WIN32
-    system("clear");
-#endif
     printf("\n -i [lang]: Use Indian Language Characters\n");
     printf(" Ex: \n");
     printf("     cmatrix -i 1\n\n");
